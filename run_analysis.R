@@ -4,6 +4,18 @@ run_analysis <- function(data_folder){
   
   data <- rbind(test_data, train_data)
   
+  names(data) <- gsub("^t", "Time", names(data))
+  names(data) <- gsub("^f", "Frequency", names(data))
+  names(data) <- gsub("Acc", "Accelerometer", names(data))
+  names(data) <- gsub("Gyro", "Gyroscope", names(data))
+  names(data) <- gsub("Mag", "Magnitud", names(data))
+  names(data) <- gsub("BodyBody", "Body", names(data))
+  names(data) <- gsub("-mean", "Mean", names(data))
+  names(data) <- gsub("-std", "STD", names(data))
+  names(data) <- gsub("-freq", "Frecuency", names(data))
+  names(data) <- gsub("angle", "Angle", names(data))
+  names(data) <- gsub("gravity", "Gravity", names(data))
+  
   filtered_data <- data %>% 
     select(subject, activity, contains("mean()") | contains("std()")) %>%
     group_by(subject, activity) %>% 
